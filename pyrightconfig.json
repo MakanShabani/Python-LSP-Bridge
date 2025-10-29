@@ -1,0 +1,20 @@
+{
+  "venvPath": "${PROJECT_ROOT}",
+  "venv": ".venv",
+  "pythonPlatform": "Linux",
+  "pythonVersion": "3.12",
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false,
+  "extraPaths": [
+    "${PROJECT_ROOT}/jesse"
+  ],
+  "executionEnvironments": [
+    {
+      "root": "${PROJECT_ROOT}",
+      "pythonVersion": "3.12",
+      "extraPaths": [
+        "${PROJECT_ROOT}/jesse"
+      ]
+    }
+  ]
+}
