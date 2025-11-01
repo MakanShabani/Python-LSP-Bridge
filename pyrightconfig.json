@@ -1,19 +1,16 @@
 {
-  "venvPath": "${PROJECT_ROOT}",
-  "venv": ".venv",
-  "pythonPlatform": "Linux",
-  "pythonVersion": "3.12",
   "reportMissingImports": true,
   "reportMissingTypeStubs": false,
   "extraPaths": [
-    "${PROJECT_ROOT}/jesse"
+    "${PROJECT_ROOT}/${JESSE_RELATIVE_PATH}",
+    "${PROJECT_ROOT}/${BOT_RELATIVE_PATH}"
   ],
   "executionEnvironments": [
     {
       "root": "${PROJECT_ROOT}",
-      "pythonVersion": "3.12",
       "extraPaths": [
-        "${PROJECT_ROOT}/jesse"
+        "${PROJECT_ROOT}/${JESSE_RELATIVE_PATH}",
+        "${PROJECT_ROOT}/${BOT_RELATIVE_PATH}"
       ]
     }
   ]
