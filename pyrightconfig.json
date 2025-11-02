@@ -2,15 +2,13 @@
   "reportMissingImports": true,
   "reportMissingTypeStubs": false,
   "extraPaths": [
-    "${PROJECT_ROOT}/${JESSE_RELATIVE_PATH}",
-    "${PROJECT_ROOT}/${BOT_RELATIVE_PATH}"
+    "${JESSE_ROOT}",
   ],
   "executionEnvironments": [
     {
-      "root": "${PROJECT_ROOT}",
+      "root": "${BOT_ROOT}",
       "extraPaths": [
-        "${PROJECT_ROOT}/${JESSE_RELATIVE_PATH}",
-        "${PROJECT_ROOT}/${BOT_RELATIVE_PATH}"
+        "${JESSE_ROOT}",
       ]
     }
   ]

@@ -34,15 +34,14 @@ function parseArgs() {
 // Example: node index.js --port 9011 --project-root /home/king/jesse/jesse-ai --jesse-relative-path jesse/jesse --bot-relative-path jesse-bot
 const args = parseArgs()
 const PYRIGHT_WS_PORT = Number(args['port'])
-const PROJECT_ROOT = args['project-root']
-const JESSE_RELATIVE_PATH = args['jesse-relative-path']
-const BOT_RELATIVE_PATH = args['bot-relative-path']
+const BOT_ROOT = args['bot-root']
+const JESSE_ROOT = args['jesse-root']
 const PYRIGHT_PATH = join(__dirname, 'node_modules/pyright/dist/pyright-langserver.js')
 
 // Deploy pyrightconfig.json to the Jesse workspace on startup
 function deployPyrightConfig() {
     const templatePath = join(__dirname, 'pyrightconfig.json')
-    const targetPath = join(PROJECT_ROOT, 'pyrightconfig.json')
+    const targetPath = join(BOT_ROOT, 'pyrightconfig.json')
     
     if (!existsSync(templatePath)) {
         console.warn(`Warning: No pyrightconfig.json template found at ${templatePath}`)
@@ -51,9 +50,8 @@ function deployPyrightConfig() {
     
     // Read template and replace variables
     let config = readFileSync(templatePath, 'utf-8')
-    config = config.replace(/\$\{PROJECT_ROOT\}/g, PROJECT_ROOT)
-    config = config.replace(/\$\{JESSE_RELATIVE_PATH\}/g, JESSE_RELATIVE_PATH || '')
-    config = config.replace(/\$\{BOT_RELATIVE_PATH\}/g, BOT_RELATIVE_PATH || '')
+    config = config.replace(/\$\{BOT_ROOT\}/g, BOT_ROOT)
+    config = config.replace(/\$\{JESSE_ROOT\}/g, JESSE_ROOT || '')
     
     // Write to workspace
     writeFileSync(targetPath, config)
@@ -65,9 +63,9 @@ function deployPyrightConfig() {
 export function startPyrightBridge() {
         
 
-        if (!PYRIGHT_WS_PORT || !PROJECT_ROOT || !JESSE_RELATIVE_PATH || !BOT_RELATIVE_PATH) {
-            console.error('Error: --port and --project-root are required')
-            console.error('Usage: npx tsx index.ts --port <PORT> --project-root <PROJECT_ROOT> --jesse-relative-path <JESSE_PATH> --bot-relative-path <BOT_PATH>')
+        if (!PYRIGHT_WS_PORT || !BOT_ROOT || !JESSE_ROOT) {
+            console.error('Error: --port and --bot-root and --jesse-root are required')
+            console.error('Usage: npx tsx index.ts --port <PORT> --bot-root <BOT_ROOT> --jesse-root <JESSE_ROOT>')
             process.exit(1)
         }
 
@@ -76,17 +74,17 @@ export function startPyrightBridge() {
         
         const wss = new WebSocketServer({ port: PYRIGHT_WS_PORT, path: '/lsp'})
         console.log(`Pyright WS bridge running on ws://localhost:${PYRIGHT_WS_PORT}/lsp`)
-        console.log(`Ecosystem root: ${PROJECT_ROOT}`)
+        console.log(`Execution root: ${BOT_ROOT}`)
 
         wss.on('connection', (ws) => {
         console.log('Client connected, spawning Pyright...')
 
         // Spawn a new Pyright instance for THIS connection
         // Set cwd to the project root so Pyright can find pyrightconfig.json and .venv
-        console.log(`Spawning Pyright with cwd: ${PROJECT_ROOT}`)
+        console.log(`Spawning Pyright with cwd: ${BOT_ROOT}`)
 
         const pyright = spawn('node', [PYRIGHT_PATH, '--stdio'], {
-            cwd: PROJECT_ROOT,
+            cwd: BOT_ROOT,
             env: process.env
         })
 
@@ -108,10 +106,10 @@ export function startPyrightBridge() {
                 console.log('🔧 Auto-injecting project configuration')
                 
                 msg.params = msg.params || {}
-                msg.params.rootUri = `file://${PROJECT_ROOT}`
+                msg.params.rootUri = `file://${BOT_ROOT}`
                 msg.params.workspaceFolders = [
                 {
-                    uri: `file://${PROJECT_ROOT}`,
+                    uri: `file://${BOT_ROOT}`,
                     name: 'jesse-ai'
                 }
                 ]
@@ -125,7 +123,7 @@ export function startPyrightBridge() {
             
             // If not already absolute, make it absolute
             if (!uri.startsWith('file://')) {
-                msg.params.textDocument.uri = `file://${path.join(PROJECT_ROOT, uri)}`
+                msg.params.textDocument.uri = `file://${path.join(BOT_ROOT, uri)}`
                 }
             }
 
