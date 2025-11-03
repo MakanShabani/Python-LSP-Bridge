@@ -113,6 +113,3 @@ Messages are translated between WebSocket and the Language Server Protocol, enab
 - `build-all.sh` - Build script for all platforms
 - `output/` - Build output directory (generated)
 
-## License
-
-This project is part of the Jesse ecosystem.
