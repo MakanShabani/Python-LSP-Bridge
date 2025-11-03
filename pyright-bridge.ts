@@ -3,12 +3,14 @@ import { WebSocketServer } from 'ws'
 import { toSocket, WebSocketMessageReader, WebSocketMessageWriter } from 'vscode-ws-jsonrpc'
 import { StreamMessageReader, StreamMessageWriter } from 'vscode-jsonrpc/node.js'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
-import path, { join } from 'path'
+import path, { dirname, join } from 'path'
+import { fileURLToPath } from 'url'
+
 import 'dotenv/config'
 
-// Get the directory where the binary is executed from
-// Use process.cwd() for pkg compatibility (node_modules is external)
-const __dirname = process.cwd()
+// Get the directory where bundle.js is located (not cwd)
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 // Parse command-line arguments
 function parseArgs() {

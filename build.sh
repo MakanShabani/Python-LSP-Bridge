@@ -100,7 +100,8 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 cp package.json output/${PLATFORM}/
 cd output/${PLATFORM}
 npm install --production --no-optional
-rm package.json package-lock.json
+rm package-lock.json
+echo '{"type":"module"}' > package.json
 echo "✓ Installed production dependencies"
 echo ""
 

@@ -30,16 +30,14 @@ npm install
 ```bash
 npm start -- \
   --port 9011 \
-  --project-root /path/to/project \
-  --jesse-relative-path jesse_folder_name \
-  --bot-relative-path jesse-bot_folder_name
+  --bot-root /path/to/jesse-bot \
+  --jesse-root /path/to/jesse
 ```
 
 ### Command-Line Arguments
-- `--port` - WebSocket server port (default: 9011)
-- `--project-root` - Root directory of the Python project
-- `--jesse-relative-path` - Relative path to Jesse framework folder
-- `--bot-relative-path` - Relative path to Jesse bot folder
+- `--port` - WebSocket server port (required)
+- `--bot-root` - Absolute path to the Jesse bot root directory (required)
+- `--jesse-root` - Absolute path to the Jesse framework root directory (required)
 
 ## Build
 
@@ -69,9 +67,8 @@ tar -xzf linux-x64.tar.gz
 cd linux-x64
 ./start.sh \
   --port 9011 \
-  --project-root /path/to/project \
-  --jesse-relative-path jesse_folder_name \
-  --bot-relative-path jesse-bot_folder_name
+  --bot-root /path/to/jesse-bot \
+  --jesse-root /path/to/jesse
 ```
 
 ### Windows
@@ -80,12 +77,12 @@ REM Extract win32-x64.zip
 
 REM Run the server
 cd win32-x64
-start.bat --port 9011 --project-root C:\path\to\project --jesse-relative-path jesse_folder_name --bot-relative-path jesse-bot_folder_name
+start.bat --port 9011 --bot-root C:\path\to\jesse-bot --jesse-root C:\path\to\jesse
 ```
 
 ## Configuration
 
-The Pyright language server is configured via `pyrightconfig.json` in the project root. You can customize type checking behavior, Python version, include/exclude patterns, and more.
+The Pyright language server is configured via `pyrightconfig.json`. The bridge automatically deploys this configuration file to the bot root directory specified by `--bot-root` on startup. You can customize type checking behavior, Python version, include/exclude patterns, and more.
 
 ## Features
 

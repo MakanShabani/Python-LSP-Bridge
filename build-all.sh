@@ -133,7 +133,8 @@ build_platform() {
     cp package.json output/${platform}/
     cd output/${platform}
     npm install --production --no-optional --silent
-    rm package.json package-lock.json
+    rm package-lock.json
+    echo '{"type":"module"}' > package.json
     echo "✓ Installed dependencies"
     
     # Step 5: Prune unnecessary files from node_modules
