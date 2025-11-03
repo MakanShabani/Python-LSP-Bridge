@@ -1,6 +1,6 @@
 # Pyright LSP WebSocket Bridge
 
-A WebSocket bridge for the Pyright language server with a bundled Node.js runtime. This service provides Python language server capabilities (autocomplete, type checking, diagnostics, etc.) through a WebSocket interface, primarily used by the Jesse dashboard to provide IntelliSense features for Jesse strategies.
+A WebSocket bridge for the Pyright language server with a bundled Node.js runtime. This service provides Python language server capabilities (autocomplete, type checking, diagnostics, etc.) through a WebSocket interface.
 
 ## Overview
 
