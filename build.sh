@@ -140,7 +140,7 @@ echo "📝 Creating start script..."
 cat > "output/${PLATFORM}/start.sh" << 'EOF'
 #!/bin/bash
 # Pyright LSP WebSocket Bridge
-# Usage: ./start.sh --port <PORT> --project-root <ROOT> --jesse-relative-path <JESSE> --bot-relative-path <BOT>
+# Usage: ./start.sh --port <PORT> --project-root <ROOT> --python-files-root <PYTHON_FILES_ROOT>
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 "${DIR}/node/bin/node" "${DIR}/bundle.js" "$@"

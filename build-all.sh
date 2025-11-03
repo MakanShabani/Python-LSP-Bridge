@@ -169,7 +169,7 @@ build_platform() {
         cat > "output/${platform}/start.bat" << 'EOF'
 @echo off
 REM Pyright LSP WebSocket Bridge - Windows
-REM Usage: start.bat --port <PORT> --project-root <ROOT> --jesse-relative-path <JESSE> --bot-relative-path <BOT>
+REM Usage: start.bat --port <PORT> --project-root <ROOT> --python-files-root <PYTHON_FILES_ROOT>
 
 set DIR=%~dp0
 "%DIR%node\node.exe" "%DIR%bundle.js" %*
@@ -180,7 +180,7 @@ EOF
         cat > "output/${platform}/start.sh" << 'EOF'
 #!/bin/bash
 # Pyright LSP WebSocket Bridge - Unix/Mac
-# Usage: ./start.sh --port <PORT> --project-root <ROOT> --jesse-relative-path <JESSE> --bot-relative-path <BOT>
+# Usage: ./start.sh --port <PORT> --project-root <ROOT> --python-files-root <PYTHON_FILES_ROOT>
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 "${DIR}/node/bin/node" "${DIR}/bundle.js" "$@"

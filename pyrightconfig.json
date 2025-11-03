@@ -2,13 +2,13 @@
   "reportMissingImports": true,
   "reportMissingTypeStubs": false,
   "extraPaths": [
-    "${JESSE_ROOT}",
+    "${PROJECT_ROOT}",
   ],
   "executionEnvironments": [
     {
-      "root": "${BOT_ROOT}",
+      "root": "${PROJECT_ROOT}",
       "extraPaths": [
-        "${JESSE_ROOT}",
+        "${Python_Files_ROOT}",
       ]
     }
   ]
